@@ -1,0 +1,15 @@
+# KruTeekidCode
+
+> บทความเกี่ยวกับ Technology, Coding และ Education โดยครูทีกิด
+
+## Blog
+บทความเกี่ยวกับ Python, AI, Web Development และการศึกษา
+URL: https://kruteekidcode.com/blog
+
+## Courses
+หลักสูตรสอน Programming สำหรับผู้เริ่มต้น
+URL: https://kruteekidcode.com/courses
+
+## About
+เกี่ยวกับครูทีกิด — นักพัฒนาซอฟต์แวร์และผู้สอน
+URL: https://kruteekidcode.com/about

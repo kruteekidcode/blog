@@ -1,0 +1,89 @@
+---
+title: "สร้างเว็บแอปแรกด้วย Next.js"
+description: "เรียนรู้การสร้างเว็บไซต์สมัยใหม่ด้วย React และ Next.js ตั้งแต่เริ่มต้น"
+date: "2026-05-20"
+tags: ["Next.js", "Web Dev", "React"]
+lang: "th"
+---
+
+Next.js เป็น framework ยอดนิยมสำหรับสร้างเว็บแอปพลิเคชันด้วย React มาดูกันว่าเริ่มต้นอย่างไร
+
+## Next.js คืออะไร?
+
+Next.js คือ React framework ที่เพิ่มความสามารถสำคัญๆ ให้กับ React:
+
+- **Server-Side Rendering (SSR)** — โหลดหน้าเว็บเร็ว SEO ดี
+- **Static Site Generation (SSG)** — สร้าง HTML ล่วงหน้า
+- **File-based Routing** — สร้างหน้าใหม่แค่สร้างไฟล์
+- **API Routes** — สร้าง backend ในโปรเจกต์เดียว
+
+## สร้างโปรเจกต์แรก
+
+```bash
+npx create-next-app@latest my-first-app
+cd my-first-app
+npm run dev
+```
+
+เปิด browser ไปที่ `http://localhost:3000` จะเห็นหน้าเว็บแรกของคุณ!
+
+## โครงสร้างโปรเจกต์
+
+```
+my-first-app/
+├── app/
+│   ├── layout.tsx    ← Layout หลัก
+│   ├── page.tsx      ← หน้าแรก
+│   └── globals.css   ← CSS
+├── public/           ← ไฟล์ static (รูป, icon)
+└── package.json
+```
+
+## สร้างหน้าใหม่
+
+ใน Next.js App Router สร้างหน้าใหม่ง่ายมาก แค่สร้าง folder + `page.tsx`:
+
+```typescript
+// app/about/page.tsx
+export default function AboutPage() {
+  return (
+    <div>
+      <h1>เกี่ยวกับเรา</h1>
+      <p>นี่คือหน้า About</p>
+    </div>
+  );
+}
+```
+
+แค่นี้ก็ได้หน้า `/about` แล้ว!
+
+## สร้าง Component แรก
+
+```typescript
+// components/Button.tsx
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
+}
+
+export default function Button({ label, onClick }: ButtonProps) {
+  return (
+    <button onClick={onClick} className="btn">
+      {label}
+    </button>
+  );
+}
+```
+
+> Next.js ทำให้การสร้างเว็บไซต์ที่เร็ว SEO ดี และ deploy ง่าย กลายเป็นเรื่องที่ไม่ยากอีกต่อไป
+
+## สรุป
+
+### สิ่งที่เรียนรู้ในบทความนี้:
+
+1. Next.js คืออะไรและทำไมถึงนิยม
+2. วิธีสร้างโปรเจกต์แรก
+3. โครงสร้างไฟล์พื้นฐาน
+4. วิธีสร้างหน้าใหม่และ Component
+
+ในบทความถัดไป เราจะเรียนรู้การ deploy เว็บไซต์ขึ้น Vercel เพื่อให้ทุกคนเข้าถึงได้!
