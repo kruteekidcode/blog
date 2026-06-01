@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -42,9 +43,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+  const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || 'https://cloud.umami.is/script.js';
+
   return (
     <html lang="th" className={inter.variable}>
       <body>
+        {umamiWebsiteId && (
+          <Script
+            defer
+            src={umamiScriptUrl}
+            data-website-id={umamiWebsiteId}
+          />
+        )}
         <Navbar />
         <main>{children}</main>
         <Footer />
@@ -52,3 +63,4 @@ export default function RootLayout({
     </html>
   );
 }
+
