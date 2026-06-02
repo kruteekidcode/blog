@@ -30,7 +30,14 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="hero-avatar">KT</div>
+          <div className="hero-avatar-wrapper">
+            <img 
+              src="/images/Profile02.jpg" 
+              alt="Kru Tee Profile" 
+              className="hero-avatar" 
+              style={{ objectFit: 'cover' }} 
+            />
+          </div>
         </div>
       </section>
 
