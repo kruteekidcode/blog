@@ -32,7 +32,7 @@ export default function Home() {
           </div>
           <div className="hero-avatar-wrapper">
             <img 
-              src="/images/Profile02.jpg" 
+              src="/images/Profile03.png" 
               alt="Kru Tee Profile" 
               className="hero-avatar" 
               style={{ objectFit: 'cover' }} 
