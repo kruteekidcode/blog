@@ -1,5 +1,5 @@
 /* ============================================
-   KruTeekidCode — Dusty Rose Light Theme
+   KruTeekidCode — Pink & Blue Theme
    Design System & Global Styles
    ============================================ */
 
@@ -8,21 +8,21 @@
 /* --- CSS Variables --- */
 :root {
   /* Colors */
-  --bg-primary: #fdf5f4;
+  --bg-primary: #fafbfe;
   --bg-navbar: #ffffff;
   --bg-card: #ffffff;
-  --bg-section-alt: #f5e8e7;
-  --bg-footer: #f5e8e7;
-  --border-color: #e8d5d3;
-  --text-primary: #2d1a19;
-  --text-secondary: #7a4f4d;
-  --accent: #AA7C7A;
-  --accent-hover: #8f6563;
-  --tag-bg: #AA7C7A;
+  --bg-section-alt: #f3f6fc;
+  --bg-footer: #f3f6fc;
+  --border-color: #e5eaf3;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --accent: #e16c9e;
+  --accent-hover: #cf5c8c;
+  --tag-bg: #6c9ee1;
   --tag-text: #ffffff;
-  --code-bg: #f5e8e7;
-  --code-block-bg: #2d1a19;
-  --code-block-text: #f5e8e7;
+  --code-bg: #f3f6fc;
+  --code-block-bg: #1e293b;
+  --code-block-text: #f3f6fc;
 
   /* Spacing */
   --space-xs: 0.25rem;
