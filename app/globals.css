@@ -777,6 +777,19 @@ img {
   background-color: var(--bg-section-alt);
 }
 
+.article-content iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  border: none;
+  margin: var(--space-lg) 0;
+}
+
+.article-content audio {
+  width: 100%;
+  margin: var(--space-lg) 0;
+}
+
 /* Article Footer */
 .article-footer {
   margin-top: var(--space-2xl);

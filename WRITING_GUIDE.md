@@ -97,4 +97,98 @@ function sayHello() {
 </pre>
 
 ---
+
+## 🔗 6. การสร้างลิงก์เชื่อมโยงไปยังเว็บไซต์อื่นแบบเปิดแท็บใหม่
+ใน Markdown ปกติ หากเราเขียนลิงก์แบบ `[ข้อความ](URL)` เมื่อผู้อ่านคลิกลิงก์ จะเป็นการเปิดลิงก์ในหน้าต่างเดิม ซึ่งทำให้ผู้อ่านออกจากเว็บไซต์ของเราไป
+
+หากต้องการให้คลิกแล้ว **เปิดแท็บใหม่** (เทียบเท่ากับแท็ก HTML `<a target="_blank">`) ให้เขียนโค้ด HTML `<a>` ลงในไฟล์ `.mdx` ดังนี้:
+
+```html
+<a href="https://www.google.com" target="_blank" rel="noopener noreferrer">คลิกเพื่อไป Google (เปิดแท็บใหม่)</a>
+```
+
+> 💡 **ข้อมูลเพิ่มเติมเพื่อความปลอดภัย:**
+> - `target="_blank"` คือคำสั่งสั่งให้เปิดหน้าต่าง/แท็บใหม่
+> - `rel="noopener noreferrer"` เป็นมาตรฐานความปลอดภัยที่จำเป็นเพื่อป้องกันไม่ให้หน้าเว็บภายนอกเข้าถึงข้อมูลบางอย่างของหน้าเว็บเราได้
+
+---
+
+## 🎥 7. การแชร์วิดีโอ (YouTube & Vimeo)
+คุณสามารถนำวิดีโอมาฝัง (Embed) เพื่อให้แสดงผลและเล่นวิดีโอภายในบทความของคุณได้ทันที โดยการนำโค้ด `<iframe>` มาวางลงในไฟล์ `.mdx` ได้เลยครับ
+
+### 🔴 การฝังวิดีโอจาก YouTube:
+1. เข้าไปที่วิดีโอ YouTube ที่ต้องการแชร์
+2. คลิกปุ่ม **"แชร์" (Share)** ใต้วิดีโอ
+3. เลือกเมนู **"ฝัง" (Embed)**
+4. คัดลอก (Copy) โค้ด `<iframe>` ทั้งหมดที่ปรากฏ
+5. นำโค้ดไปวางในไฟล์ `.mdx` ของคุณได้ทันที
+
+**ตัวอย่างโค้ด YouTube:**
+```html
+<iframe 
+  width="100%" 
+  height="315" 
+  src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+```
+
+### 🔵 การฝังวิดีโอจาก Vimeo:
+1. เข้าไปที่วิดีโอ Vimeo ที่ต้องการแชร์
+2. คลิกไอคอน **"แชร์" (Share)** (รูปเครื่องบินกระดาษ)
+3. ที่หัวข้อ **"ฝัง" (Embed)** ให้คัดลอกโค้ดทั้งหมด
+4. นำโค้ดไปวางในไฟล์ `.mdx`
+
+**ตัวอย่างโค้ด Vimeo:**
+```html
+<iframe 
+  src="https://player.vimeo.com/video/76979871?h=8272103f6b" 
+  width="100%" 
+  height="360" 
+  frameborder="0" 
+  allow="autoplay; fullscreen; picture-in-picture" 
+  allowfullscreen
+></iframe>
+```
+
+---
+
+## 🎵 8. การแชร์ไฟล์เสียง (SoundCloud & ไฟล์ MP3)
+คุณสามารถใส่เครื่องเล่นเสียง (Audio Player) ในบทความได้ ทั้งจากบริการของ SoundCloud และเล่นไฟล์เสียงตรง (.mp3)
+
+### 🟠 การฝังเครื่องเล่นเสียงจาก SoundCloud:
+1. ไปที่เพลงหรือคลิปเสียงใน SoundCloud
+2. คลิกปุ่ม **"แชร์" (Share)**
+3. เลือกแท็บ **"ฝัง" (Embed)**
+4. คัดลอกโค้ด `<iframe>` ในช่องข้อความ
+5. นำมาวางในไฟล์ `.mdx`
+
+**ตัวอย่างโค้ด SoundCloud:**
+```html
+<iframe 
+  width="100%" 
+  height="166" 
+  scrolling="no" 
+  frameborder="no" 
+  allow="autoplay" 
+  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+></iframe>
+```
+
+### 🔈 การฝังไฟล์ MP3 โดยตรง:
+หากต้องการให้เล่นไฟล์เสียง (.mp3) ที่อัปโหลดไว้ สามารถใช้แท็ก `<audio>` ของ HTML5 ได้ทันที:
+
+- **กรณีเก็บไฟล์เสียงไว้ในโปรเจกต์:** นำไฟล์ไปวางไว้ที่โฟลเดอร์ `public/audio/` (หากไม่มีให้สร้างโฟลเดอร์ขึ้นมา) แล้วเขียนโค้ดดังนี้:
+  ```html
+  <audio controls src="/audio/my-podcast.mp3"></audio>
+  ```
+- **กรณีดึงไฟล์เสียงจากลิงก์ภายนอก:**
+  ```html
+  <audio controls src="https://example.com/podcast.mp3"></audio>
+  ```
+
+---
 เพียงเท่านี้ คุณครูทีกิดก็สามารถสร้างสรรค์เนื้อหาดีๆ และอัปเดตเว็บไซต์ได้อย่างง่ายดายแล้วครับ!
