@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getAllPosts, getPostBySlug, formatDateThai } from '@/lib/content';
+import { getAllPosts, getPostBySlug, getRelatedPosts, formatDateThai } from '@/lib/content';
 import BlogCard from '@/components/BlogCard';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import rehypeHighlight from 'rehype-highlight';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -30,6 +32,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'article',
       publishedTime: post.date,
       tags: post.tags,
+      ...(post.coverImage && { images: [post.coverImage] }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      ...(post.coverImage && { images: [post.coverImage] }),
     },
   };
 }
@@ -42,17 +51,42 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  // Get related posts (other posts excluding current)
-  const allPosts = getAllPosts();
-  const relatedPosts = allPosts
-    .filter((p) => p.slug !== slug)
-    .slice(0, 2);
+  // Get related posts ranked by shared tags
+  const relatedPosts = getRelatedPosts(slug, 2);
 
   const shareUrl = `https://kruteekidcode.com/blog/${slug}`;
   const shareTitle = encodeURIComponent(post.title);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    inLanguage: post.lang,
+    keywords: post.tags.join(', '),
+    url: shareUrl,
+    ...(post.coverImage && {
+      image: `https://kruteekidcode.com${post.coverImage}`,
+    }),
+    author: {
+      '@type': 'Person',
+      name: 'KruTeekid',
+      url: 'https://kruteekidcode.com/about',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'KruTeekidCode',
+      url: 'https://kruteekidcode.com',
+    },
+  };
+
   return (
     <article className="article-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <header className="article-header">
         {post.tags.length > 0 && (
@@ -72,7 +106,14 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* Cover Image */}
       {post.coverImage && (
         <div className="article-cover">
-          <img src={post.coverImage} alt={post.title} />
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            width={1200}
+            height={630}
+            priority
+            style={{ width: '100%', height: 'auto' }}
+          />
         </div>
       )}
 
@@ -83,7 +124,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeSlug],
+              rehypePlugins: [rehypeSlug, rehypeHighlight],
             },
           }}
         />

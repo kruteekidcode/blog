@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getAllCourses, getCourseBySlug } from '@/lib/content';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import rehypeHighlight from 'rehype-highlight';
 import Link from 'next/link';
 
 interface PageProps {
@@ -54,7 +55,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeSlug],
+              rehypePlugins: [rehypeSlug, rehypeHighlight],
             },
           }}
         />

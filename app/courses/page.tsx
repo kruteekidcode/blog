@@ -24,6 +24,9 @@ export default function CoursesPage() {
               title={course.title}
               description={course.description}
               slug={course.slug}
+              level={course.level}
+              lessons={course.lessons}
+              duration={course.duration}
             />
           ))}
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { getAllPosts, formatDateThai } from '@/lib/content';
-import BlogCard from '@/components/BlogCard';
+import { getAllPosts, getAllTags, formatDateThai } from '@/lib/content';
+import BlogList from '@/components/BlogList';
 
 export const metadata: Metadata = {
   title: 'บทความ',
@@ -9,6 +9,18 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
+  const tags = getAllTags();
+
+  // Pass only serializable display fields to the client component
+  const listItems = posts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    description: post.description,
+    date: formatDateThai(post.date),
+    readingTime: post.readingTime,
+    tags: post.tags,
+    coverImage: post.coverImage,
+  }));
 
   return (
     <div className="blog-page">
@@ -17,20 +29,7 @@ export default function BlogPage() {
       </div>
 
       {posts.length > 0 ? (
-        <div className="blog-page-grid">
-          {posts.map((post) => (
-            <BlogCard
-              key={post.slug}
-              title={post.title}
-              description={post.description}
-              date={formatDateThai(post.date)}
-              readingTime={post.readingTime}
-              tags={post.tags}
-              slug={post.slug}
-              coverImage={post.coverImage}
-            />
-          ))}
-        </div>
+        <BlogList posts={listItems} tags={tags} />
       ) : (
         <div className="blog-page-empty">
           <p>ยังไม่มีบทความ — กำลังเขียนอยู่ รอติดตามนะครับ 📝</p>

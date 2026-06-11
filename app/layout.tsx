@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Noto_Sans_Thai_Looped } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import Navbar from '@/components/Navbar';
@@ -11,6 +11,13 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const notoSansThai = Noto_Sans_Thai_Looped({
+  subsets: ['thai', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-thai',
+});
+
 export const metadata: Metadata = {
   title: {
     default: 'KruTeekidCode — Blog, Courses & More',
@@ -19,6 +26,11 @@ export const metadata: Metadata = {
   description:
     'บทความเกี่ยวกับ Technology, Coding และ Education โดยครูทีกิด',
   metadataBase: new URL('https://kruteekidcode.com'),
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
+  },
   openGraph: {
     title: 'KruTeekidCode',
     description: 'บทความเกี่ยวกับ Technology, Coding และ Education โดยครูทีกิด',
@@ -47,7 +59,7 @@ export default function RootLayout({
   const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || 'https://cloud.umami.is/script.js';
 
   return (
-    <html lang="th" className={inter.variable}>
+    <html lang="th" className={`${inter.variable} ${notoSansThai.variable}`}>
       <body>
         {umamiWebsiteId && (
           <Script

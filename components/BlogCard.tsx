@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface BlogCardProps {
   title: string;
@@ -21,9 +22,15 @@ export default function BlogCard({
 }: BlogCardProps) {
   return (
     <article className="blog-card">
-      <div className="blog-card-image">
+      <div className="blog-card-image" style={{ position: 'relative' }}>
         {coverImage ? (
-          <img src={coverImage} alt={title} />
+          <Image
+            src={coverImage}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            style={{ objectFit: 'cover' }}
+          />
         ) : (
           <span>📝</span>
         )}

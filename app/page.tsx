@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import BlogCard from '@/components/BlogCard';
 import CourseCard from '@/components/CourseCard';
 import { getAllPosts, getAllCourses, formatDateThai } from '@/lib/content';
@@ -31,11 +32,14 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-avatar-wrapper">
-            <img 
-              src="/images/Profile03.png" 
-              alt="Kru Tee Profile" 
-              className="hero-avatar" 
-              style={{ objectFit: 'cover' }} 
+            <Image
+              src="/images/Profile03.png"
+              alt="Kru Tee Profile"
+              className="hero-avatar"
+              width={320}
+              height={320}
+              priority
+              style={{ objectFit: 'cover' }}
             />
           </div>
         </div>
@@ -86,6 +90,9 @@ export default function Home() {
                 title={course.title}
                 description={course.description}
                 slug={course.slug}
+                level={course.level}
+                lessons={course.lessons}
+                duration={course.duration}
               />
             ))}
           </div>

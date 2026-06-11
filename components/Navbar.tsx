@@ -35,11 +35,11 @@ export default function Navbar() {
         </ul>
 
         <div className="navbar-right">
-          <span className="navbar-lang">TH | EN</span>
           <button
             className="navbar-hamburger"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               {mobileOpen ? (
@@ -63,7 +63,6 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
-        <span className="navbar-lang" style={{ paddingTop: '0.5rem' }}>TH | EN</span>
       </div>
     </nav>
   );

@@ -15,6 +15,7 @@ export interface BlogPost {
   readingTime: string;
   content: string;
   lang: string;
+  draft: boolean;
 }
 
 export interface Course {
@@ -22,6 +23,23 @@ export interface Course {
   title: string;
   description: string;
   content: string;
+  level?: string;
+  lessons?: number;
+  duration?: string;
+  order?: number;
+}
+
+/**
+ * Validate date string — warn at build time if invalid
+ */
+function parseDate(dateString: string, slug: string): number {
+  if (!dateString) return 0;
+  const time = new Date(dateString).getTime();
+  if (Number.isNaN(time)) {
+    console.warn(`[content] Invalid date "${dateString}" in post "${slug}" — expected YYYY-MM-DD`);
+    return 0;
+  }
+  return time;
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -50,13 +68,43 @@ export function getAllPosts(): BlogPost[] {
       readingTime: `${Math.ceil(stats.minutes)} min`,
       content,
       lang: data.lang || 'th',
+      draft: data.draft === true,
     } as BlogPost;
   });
 
+  // Hide drafts in production build (still visible during `next dev`)
+  const visiblePosts =
+    process.env.NODE_ENV === 'production'
+      ? posts.filter((post) => !post.draft)
+      : posts;
+
   // Sort by date descending
-  return posts.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  return visiblePosts.sort((a, b) => {
+    return parseDate(b.date, b.slug) - parseDate(a.date, a.slug);
   });
+}
+
+/**
+ * Get related posts ranked by number of shared tags (fallback: latest posts)
+ */
+export function getRelatedPosts(slug: string, limit: number = 2): BlogPost[] {
+  const current = getPostBySlug(slug);
+  const others = getAllPosts().filter((p) => p.slug !== slug);
+
+  if (!current || current.tags.length === 0) {
+    return others.slice(0, limit);
+  }
+
+  const currentTags = new Set(current.tags);
+
+  return others
+    .map((post) => ({
+      post,
+      score: post.tags.filter((tag) => currentTags.has(tag)).length,
+    }))
+    .sort((a, b) => b.score - a.score || parseDate(b.post.date, b.post.slug) - parseDate(a.post.date, a.post.slug))
+    .slice(0, limit)
+    .map(({ post }) => post);
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
@@ -80,6 +128,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     readingTime: `${Math.ceil(stats.minutes)} min`,
     content,
     lang: data.lang || 'th',
+    draft: data.draft === true,
   };
 }
 
@@ -101,7 +150,7 @@ export function getAllCourses(): Course[] {
 
   const files = fs.readdirSync(coursesDir).filter((f) => f.endsWith('.mdx'));
 
-  return files.map((filename) => {
+  const courses = files.map((filename) => {
     const slug = filename.replace(/\.mdx$/, '');
     const filePath = path.join(coursesDir, filename);
     const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -112,8 +161,15 @@ export function getAllCourses(): Course[] {
       title: data.title || 'Untitled',
       description: data.description || '',
       content,
-    };
+      level: data.level || undefined,
+      lessons: data.lessons || undefined,
+      duration: data.duration || undefined,
+      order: data.order ?? undefined,
+    } as Course;
   });
+
+  // Sort by `order` field (courses without order go last)
+  return courses.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 }
 
 export function getCourseBySlug(slug: string): Course | null {
@@ -131,6 +187,10 @@ export function getCourseBySlug(slug: string): Course | null {
     title: data.title || 'Untitled',
     description: data.description || '',
     content,
+    level: data.level || undefined,
+    lessons: data.lessons || undefined,
+    duration: data.duration || undefined,
+    order: data.order ?? undefined,
   };
 }
 
@@ -157,6 +217,9 @@ export function formatDateThai(dateString: string): string {
   ];
 
   const date = new Date(dateString);
+  if (!dateString || Number.isNaN(date.getTime())) {
+    return dateString || '';
+  }
   const day = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear() + 543; // Thai Buddhist year
