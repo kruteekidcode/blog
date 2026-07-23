@@ -61,7 +61,10 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <div className="footer-container">
+      <div className="footer-container" id="contact">
+        <Link href="/" className="footer-logo">
+          KruTeeKidCode
+        </Link>
         <div className="footer-social">
           {socialLinks.map((social) => (
             <Link
@@ -76,8 +79,7 @@ export default function Footer() {
             </Link>
           ))}
         </div>
-        <p className="footer-text">© 2026 KruTeekidCode. All rights reserved.</p>
-        <p className="footer-text">Built with ❤️ and Next.js</p>
+        <p className="footer-text">© 2026 KruTeeKidCode. All rights reserved.</p>
       </div>
     </footer>
   );

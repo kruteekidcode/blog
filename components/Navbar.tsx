@@ -12,13 +12,17 @@ export default function Navbar() {
     { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About' },
     { href: '/courses', label: 'Courses' },
+    { href: '/#contact', label: 'Contact' },
   ];
+
+  const isActive = (href: string) =>
+    href.startsWith('/#') ? false : pathname.startsWith(href);
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <Link href="/" className="navbar-logo">
-          KruTeekidCode
+          KruTeeKidCode
         </Link>
 
         <ul className="navbar-links">
@@ -26,12 +30,17 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`navbar-link ${pathname.startsWith(link.href) ? 'active' : ''}`}
+                className={`navbar-link ${isActive(link.href) ? 'active' : ''}`}
               >
                 {link.label}
               </Link>
             </li>
           ))}
+          <li>
+            <Link href="/blog" className="navbar-cta">
+              อ่านบทความ
+            </Link>
+          </li>
         </ul>
 
         <div className="navbar-right">
@@ -63,6 +72,14 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
+        <Link
+          href="/blog"
+          className="navbar-cta"
+          onClick={() => setMobileOpen(false)}
+          style={{ marginTop: '0.5rem', alignSelf: 'flex-start' }}
+        >
+          อ่านบทความ
+        </Link>
       </div>
     </nav>
   );

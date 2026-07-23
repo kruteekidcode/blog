@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Design source/handoff (not part of the Next app)
+redesign/
+
+# Local git helper scripts
+*.bat
+
+# Design export archives
+*.zip
