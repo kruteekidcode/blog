@@ -5,16 +5,10 @@ import { useState, FormEvent } from 'react';
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 /**
- * Newsletter subscribe form.
- *
- * ตั้งค่า endpoint ของบริการอีเมลผ่าน env `NEXT_PUBLIC_NEWSLETTER_ENDPOINT`
- * (เช่น URL ฟอร์มของ Buttondown / Mailchimp / Google Form).
- * ฟอร์มจะ POST ค่า `email` ไปยัง endpoint นั้นด้วย fetch.
- * ถ้ายังไม่ตั้งค่า จะแสดงข้อความว่ายังไม่ได้เชื่อมต่อบริการ (กันไม่ให้เก็บ email ลอยๆ)
+ * ฟอร์มสมัครรับข่าว — ส่งไปที่ /api/subscribe ซึ่งต่อกับ MailerLite ฝั่งเซิร์ฟเวอร์
+ * (API key เก็บเป็นความลับใน Environment Variable บน Vercel ไม่โผล่ในหน้าเว็บ)
  */
 export default function NewsletterForm() {
-  const endpoint = process.env.NEXT_PUBLIC_NEWSLETTER_ENDPOINT;
-
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
@@ -28,29 +22,30 @@ export default function NewsletterForm() {
       return;
     }
 
-    if (!endpoint) {
-      setStatus('error');
-      setMessage('ยังไม่ได้เชื่อมต่อบริการรับข่าว (ผู้ดูแลตั้งค่า NEXT_PUBLIC_NEWSLETTER_ENDPOINT)');
-      return;
-    }
-
     setStatus('loading');
     setMessage('');
 
     try {
-      const body = new FormData();
-      body.append('email', email);
-
-      const res = await fetch(endpoint, {
+      const res = await fetch('/api/subscribe', {
         method: 'POST',
-        body,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
       });
 
       if (res.ok) {
         setStatus('success');
-        setMessage('ขอบคุณครับ! ยืนยันการสมัครในอีเมลของคุณได้เลย');
+        setMessage('ขอบคุณครับ! โปรดยืนยันการสมัครในอีเมลของคุณ');
         setEmail('');
+        return;
+      }
+
+      const data = await res.json().catch(() => ({}));
+      if (data?.error === 'invalid_email') {
+        setStatus('error');
+        setMessage('อีเมลไม่ถูกต้อง ลองใหม่อีกครั้งนะครับ');
+      } else if (data?.error === 'not_configured') {
+        setStatus('error');
+        setMessage('ระบบรับข่าวยังไม่พร้อม (ผู้ดูแลกำลังตั้งค่า)');
       } else {
         setStatus('error');
         setMessage('สมัครไม่สำเร็จ ลองใหม่อีกครั้งนะครับ');
@@ -75,9 +70,13 @@ export default function NewsletterForm() {
       <button type="submit" className="newsletter-btn" disabled={status === 'loading'}>
         {status === 'loading' ? 'กำลังสมัคร…' : 'สมัครรับข่าว'}
       </button>
-      {message && (
+      {message ? (
         <p className={`newsletter-note ${status === 'error' ? 'error' : ''}`} role="status">
           {message}
+        </p>
+      ) : (
+        <p className="newsletter-consent">
+          กรอกอีเมลเพื่อรับข่าวสารความรู้เท่านั้น ยกเลิกได้ทุกเมื่อ
         </p>
       )}
     </form>

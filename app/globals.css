@@ -1086,6 +1086,14 @@ img {
   color: #ffe0ea;
 }
 
+.newsletter-consent {
+  flex-basis: 100%;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4px;
+  min-height: 1.1rem;
+}
+
 /* ============================================
    BLOG PAGE
    ============================================ */
