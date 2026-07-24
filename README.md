@@ -4,6 +4,15 @@
 
 ---
 
+## 📚 เอกสารเพิ่มเติม
+
+- **[docs/AGENT_PLAYBOOK.md](docs/AGENT_PLAYBOOK.md)** — คู่มือสำหรับ AI agent ใช้โคลนสถาปัตยกรรม/วิธีทำงานไปสร้างเว็บใหม่ (tech stack, design system, content workflow, SEO, newsletter, deploy pipeline, gotchas)
+- **[docs/CHANGELOG.md](docs/CHANGELOG.md)** — บันทึกการเปลี่ยนแปลงของเว็บตามลำดับเวลา
+- **[WRITING_GUIDE.md](WRITING_GUIDE.md)** — วิธีเขียนบทความ/คอร์ส (frontmatter, draft, รูปภาพ)
+- **[ANALYTICS.md](ANALYTICS.md)** — วิธีดูสถิติผู้เข้าชม (Umami)
+
+---
+
 ## 🌳 แผนผังโครงสร้างเว็บไซต์ (Directory Tree Diagram)
 
 ด้านล่างนี้คือแผนผังโครงสร้างไฟล์และโฟลเดอร์ของโปรเจ็ค Next.js (App Router) นี้ครับ:
