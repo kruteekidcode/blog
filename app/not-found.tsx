@@ -12,7 +12,7 @@ export default function NotFound() {
           <Link href="/" className="btn-primary">
             กลับหน้าแรก
           </Link>
-          <Link href="/blog" className="btn-outline">
+          <Link href="/articles" className="btn-outline">
             ดูบทความทั้งหมด
           </Link>
         </div>

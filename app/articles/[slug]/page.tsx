@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   // Get related posts ranked by shared tags
   const relatedPosts = getRelatedPosts(slug, 2);
 
-  const shareUrl = `https://kruteekidcode.com/blog/${slug}`;
+  const shareUrl = `https://kruteekidcode.com/articles/${slug}`;
   const shareTitle = encodeURIComponent(post.title);
 
   const jsonLd = {

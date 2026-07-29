@@ -56,7 +56,7 @@
 │   ├── robots.ts, sitemap.ts   # SEO
 │   ├── feed.xml/route.ts       # RSS
 │   ├── api/subscribe/route.ts  # 📮 newsletter → MailerLite (server-side)
-│   ├── blog/
+│   ├── articles/
 │   │   ├── page.tsx            # รายการบทความ (server) → ส่งข้อมูลให้ BlogList
 │   │   └── [slug]/page.tsx     # อ่านบทความ (MDX + JSON-LD + related)
 │   └── courses/
@@ -68,7 +68,7 @@
 │   ├── BlogList.tsx            # 'use client' — ค้นหา + กรองแท็ก (useMemo)
 │   └── NewsletterForm.tsx      # 'use client' — ฟอร์มรับข่าว
 ├── content/
-│   ├── blog/*.mdx  courses/*.mdx  about.mdx     # เนื้อหาจริง
+│   ├── articles/*.mdx  courses/*.mdx  about.mdx     # เนื้อหาจริง
 ├── lib/
 │   ├── content.ts              # อ่าน MDX, draft, related-by-tag, วันที่ไทย พ.ศ.
 │   └── emoji.ts                # แม็พแท็ก → อิโมจิ (การ์ดที่ไม่มีรูปปก)
@@ -76,6 +76,22 @@
 ├── public/images/              # รูปภาพ
 └── docs/                       # 📚 เอกสาร (CHANGELOG, playbook นี้)
 ```
+
+---
+
+## 2b. 🔗 กติกา URL (ใช้ร่วมกันทุกเว็บในตระกูลนี้)
+
+| ประเภท | รูปแบบ |
+| :--- | :--- |
+| หน้ารวมบทความ | `/articles` |
+| บทความ | `/articles/<slug>` |
+| หน้ารวมคอร์ส | `/courses` |
+| คอร์ส | `/courses/<slug>` |
+
+**ห้ามใช้ `/blog`** — repo นี้เคยใช้แล้วย้ายมา `/articles` เมื่อ ก.ค. 2026
+เพื่อให้ตรงกับ `teedba.com` (ดูรายละเอียดใน `docs/CHANGELOG.md`)
+
+`next.config.ts` มี redirect 308 ถาวรจาก `/blog/*` ไว้แล้ว — **ห้ามลบออก**
 
 ---
 

@@ -27,7 +27,7 @@ if (!slug) {
   process.exit(1);
 }
 
-const filePath = path.join(process.cwd(), 'content', 'blog', `${slug}.mdx`);
+const filePath = path.join(process.cwd(), 'content', 'articles', `${slug}.mdx`);
 
 if (fs.existsSync(filePath)) {
   console.error(`❌ มีไฟล์ ${slug}.mdx อยู่แล้ว`);
@@ -60,6 +60,6 @@ draft: true
 fs.mkdirSync(path.dirname(filePath), { recursive: true });
 fs.writeFileSync(filePath, template, 'utf-8');
 
-console.log(`✅ สร้างบทความใหม่แล้ว: content/blog/${slug}.mdx`);
+console.log(`✅ สร้างบทความใหม่แล้ว: content/articles/${slug}.mdx`);
 console.log(`📝 สถานะ: draft (จะไม่แสดงบนเว็บจริงจนกว่าจะลบบรรทัด draft: true)`);
-console.log(`👀 ดูตัวอย่างได้ที่ http://localhost:3000/blog/${slug} (npm run dev)`);
+console.log(`👀 ดูตัวอย่างได้ที่ http://localhost:3000/articles/${slug} (npm run dev)`);

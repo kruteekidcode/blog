@@ -26,7 +26,7 @@ export default function Home() {
               ครูตี๋สอนเด็กๆให้ คิดเป็นระบบ แก้ปัญหาเป็นขั้นตอน เขียนโค้ดสำหรับอนาคต
             </p>
             <div className="hero-buttons">
-              <Link href="/blog" className="btn-primary">
+              <Link href="/articles" className="btn-primary">
                 อ่านบทความ →
               </Link>
               <Link href="/courses" className="btn-outline">
@@ -78,7 +78,7 @@ export default function Home() {
             <div className="section-eyebrow">Latest</div>
             <h2 className="section-title">บทความล่าสุด</h2>
           </div>
-          <Link href="/blog" className="section-link">
+          <Link href="/articles" className="section-link">
             ดูบทความทั้งหมด →
           </Link>
         </div>

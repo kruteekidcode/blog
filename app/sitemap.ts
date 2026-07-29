@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static routes
   const staticRoutes = [
     '',
-    '/blog',
+    '/articles',
     '/courses',
     '/about',
   ].map((route) => ({
@@ -17,10 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1.0 : 0.8,
   }));
 
-  // Dynamic blog posts
+  // Dynamic article posts
   const posts = getAllPosts();
-  const blogRoutes = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+  const articleRoutes = posts.map((post) => ({
+    url: `${baseUrl}/articles/${post.slug}`,
     lastModified: new Date(post.date || new Date()),
     changeFrequency: 'weekly' as const,
     priority: 0.6,
@@ -35,5 +35,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogRoutes, ...courseRoutes];
+  return [...staticRoutes, ...articleRoutes, ...courseRoutes];
 }

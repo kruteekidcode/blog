@@ -43,17 +43,17 @@ function parseDate(dateString: string, slug: string): number {
 }
 
 export function getAllPosts(): BlogPost[] {
-  const blogDir = path.join(contentDirectory, 'blog');
+  const articlesDir = path.join(contentDirectory, 'articles');
 
-  if (!fs.existsSync(blogDir)) {
+  if (!fs.existsSync(articlesDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(blogDir).filter((f) => f.endsWith('.mdx'));
+  const files = fs.readdirSync(articlesDir).filter((f) => f.endsWith('.mdx'));
 
   const posts = files.map((filename) => {
     const slug = filename.replace(/\.mdx$/, '');
-    const filePath = path.join(blogDir, filename);
+    const filePath = path.join(articlesDir, filename);
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const { data, content } = matter(fileContent);
     const stats = readingTime(content);
@@ -108,7 +108,7 @@ export function getRelatedPosts(slug: string, limit: number = 2): BlogPost[] {
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
-  const filePath = path.join(contentDirectory, 'blog', `${slug}.mdx`);
+  const filePath = path.join(contentDirectory, 'articles', `${slug}.mdx`);
 
   if (!fs.existsSync(filePath)) {
     return null;

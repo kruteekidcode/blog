@@ -4,6 +4,46 @@
 
 ---
 
+## 2026-07 — เปลี่ยน URL บทความจาก `/blog` เป็น `/articles`
+
+ปรับให้ตรงกับเว็บพี่น้อง **teedba.com** (อาจารย์ตี๋ที่สอน Oracle) เพื่อให้โครงสร้าง URL
+ของทั้งสองเว็บเหมือนกัน — เวลาสลับไปมาระหว่างสองโปรเจ็คจะได้ไม่สับสน
+
+### สิ่งที่เปลี่ยน
+
+| เดิม | ใหม่ |
+| :--- | :--- |
+| `/blog` | `/articles` |
+| `/blog/<slug>` | `/articles/<slug>` |
+| `app/blog/` | `app/articles/` |
+| `content/blog/` | `content/articles/` |
+
+แก้ path ในไฟล์ที่เกี่ยวข้อง 10 ไฟล์ — `lib/content.ts`, `app/sitemap.ts`,
+`app/feed.xml/route.ts`, `app/not-found.tsx`, `app/page.tsx`, `components/BlogCard.tsx`,
+`components/Navbar.tsx`, `scripts/new-post.mjs`, `public/llms.txt` และหน้าอ่านบทความ (shareUrl)
+
+### 🔁 Redirect ถาวรใน `next.config.ts`
+
+```ts
+{ source: "/blog",       destination: "/articles",       permanent: true }
+{ source: "/blog/:slug", destination: "/articles/:slug", permanent: true }
+```
+
+`permanent: true` = HTTP 308 ซึ่ง Google ปฏิบัติเหมือน 301 คือย้ายอันดับตามไปที่ URL ใหม่
+
+> ⚠️ **ห้ามลบ redirect นี้ออก** แม้เวลาผ่านไปนานแล้ว
+> ลิงก์เก่าที่คนเคยแชร์หรือ bookmark ไว้จะอยู่ในอินเทอร์เน็ตตลอดไป
+
+### สิ่งที่ **ไม่ได้** เปลี่ยน (ตั้งใจ)
+
+- **ชื่อคลาส CSS** `blog-card`, `blog-page`, `blog-card-title` ฯลฯ — เป็นชื่อภายใน
+  ไม่กระทบ URL การเปลี่ยนมีแต่ความเสี่ยงโดยไม่ได้อะไรเพิ่ม
+- **โฟลเดอร์รูป** `public/images/blog/` — เป็นที่เก็บไฟล์ ไม่ใช่ URL ของหน้าเว็บ
+- **ป้ายเมนู "Blog"** บนแถบนำทาง — ยังเป็นคำเดิม เปลี่ยนได้ที่ `components/Navbar.tsx`
+  ถ้าต้องการ (URL กับป้ายไม่จำเป็นต้องเป็นคำเดียวกัน)
+
+---
+
 ## 2026-07 — Newsletter รับข่าวผ่าน MailerLite (`3cd1ed0`)
 
 เพิ่มระบบสมัครรับข่าวจริง เชื่อมกับ **MailerLite** ผ่าน API route ฝั่งเซิร์ฟเวอร์

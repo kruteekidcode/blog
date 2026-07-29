@@ -24,7 +24,7 @@ export default function BlogCard({
 }: BlogCardProps) {
   return (
     <article className="blog-card">
-      <Link href={`/blog/${slug}`} className="blog-card-image" aria-hidden="true" tabIndex={-1}>
+      <Link href={`/articles/${slug}`} className="blog-card-image" aria-hidden="true" tabIndex={-1}>
         {coverImage ? (
           <Image
             src={coverImage}
@@ -46,7 +46,7 @@ export default function BlogCard({
           ))}
         </div>
         <h3 className="blog-card-title">
-          <Link href={`/blog/${slug}`}>{title}</Link>
+          <Link href={`/articles/${slug}`}>{title}</Link>
         </h3>
         <p className="blog-card-desc">{description}</p>
         <div className="blog-card-meta">

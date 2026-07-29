@@ -9,7 +9,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const links = [
-    { href: '/blog', label: 'Blog' },
+    { href: '/articles', label: 'Blog' },
     { href: '/about', label: 'About' },
     { href: '/courses', label: 'Courses' },
     { href: '/#contact', label: 'Contact' },
@@ -37,7 +37,7 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <Link href="/blog" className="navbar-cta">
+            <Link href="/articles" className="navbar-cta">
               อ่านบทความ
             </Link>
           </li>
@@ -73,7 +73,7 @@ export default function Navbar() {
           </Link>
         ))}
         <Link
-          href="/blog"
+          href="/articles"
           className="navbar-cta"
           onClick={() => setMobileOpen(false)}
           style={{ marginTop: '0.5rem', alignSelf: 'flex-start' }}

@@ -19,8 +19,8 @@ export async function GET() {
       const pubDate = post.date ? new Date(post.date).toUTCString() : '';
       return `    <item>
       <title>${escapeXml(post.title)}</title>
-      <link>${SITE_URL}/blog/${post.slug}</link>
-      <guid isPermaLink="true">${SITE_URL}/blog/${post.slug}</guid>
+      <link>${SITE_URL}/articles/${post.slug}</link>
+      <guid isPermaLink="true">${SITE_URL}/articles/${post.slug}</guid>
       <description>${escapeXml(post.description)}</description>
       ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ''}
       ${post.tags.map((tag) => `<category>${escapeXml(tag)}</category>`).join('\n      ')}

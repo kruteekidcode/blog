@@ -22,7 +22,7 @@ kruteekidcode-blog/
 ├── app/                              # 🌐 โครงสร้างหน้าเว็บและเส้นทาง (App Router)
 │   ├── about/                        # หน้าเกี่ยวกับฉัน (/about)
 │   │   └── page.tsx
-│   ├── blog/                         # หน้าระบบบล็อก (/blog)
+│   ├── articles/                     # หน้าระบบบทความ (/articles)
 │   │   ├── page.tsx                  # หน้ารายการบทความ (มีช่องค้นหา + กรองตาม Tag)
 │   │   └── [slug]/                   # หน้าอ่านบทความตัวเต็ม (Dynamic Route)
 │   │       └── page.tsx              # (มี JSON-LD Schema + Syntax Highlighting)
@@ -51,7 +51,7 @@ kruteekidcode-blog/
 │
 ├── content/                          # 📝 แหล่งเก็บไฟล์เนื้อหาจริง (Markdown/MDX)
 │   ├── about.mdx                     # ข้อมูลประวัติในหน้าเกี่ยวกับฉัน
-│   ├── blog/                         # โฟลเดอร์เก็บไฟล์เนื้อหาบทความ (.mdx)
+│   ├── articles/                     # โฟลเดอร์เก็บไฟล์เนื้อหาบทความ (.mdx)
 │   │   ├── ai-in-education.mdx
 │   │   ├── getting-started-with-python.mdx
 │   │   └── nextjs-first-app.mdx
@@ -91,7 +91,7 @@ kruteekidcode-blog/
 
 ### 3. โฟลเดอร์ `content/` (Content Database)
 เปรียบเสมือนฐานข้อมูลของเว็บไซต์ โดยเก็บข้อมูลเป็นรูปแบบเอกสาร **MDX (Markdown + React Component)** ทำให้เขียนบทความได้ง่าย รวดเร็ว และไม่มีสไตล์โค้ดดิ้งมารบกวน
-* ทุกครั้งที่คุณอยากเพิ่มบทความใหม่ ให้สร้างไฟล์ `.mdx` ลงในโฟลเดอร์ `content/blog/` ได้เลย
+* ทุกครั้งที่คุณอยากเพิ่มบทความใหม่ ให้สร้างไฟล์ `.mdx` ลงในโฟลเดอร์ `content/articles/` ได้เลย
 * ทุกครั้งที่คุณอยากเพิ่มหรือแก้ไขเนื้อหาหลักสูตร ให้สร้างหรือแก้ไขไฟล์ใน `content/courses/` ได้เลย
 
 ### 4. โฟลเดอร์ `lib/` (Backend Utilities)
@@ -127,7 +127,7 @@ kruteekidcode-blog/
 
 เมื่อต้องการแก้ไขหรือเพิ่มบทความ/หลักสูตรใหม่ ให้คุณใช้โปรแกรม Editor ทั่วไป (เช่น VS Code) เปิดไฟล์ในไดเรกทอรี `content/` แล้วเขียนเนื้อหาในฟอร์แมตนี้ครับ:
 
-### ตัวอย่างการแต่งบทความใน `content/blog/my-new-post.mdx`:
+### ตัวอย่างการแต่งบทความใน `content/articles/my-new-post.mdx`:
 ```markdown
 ---
 title: "หัวข้อบทความใหม่ของคุณ"
@@ -187,7 +187,7 @@ def hello_world():
 
 | ฟีเจอร์ | รายละเอียด |
 | :--- | :--- |
-| 🔍 ค้นหาบทความ | ช่องค้นหาหน้า /blog (fuzzy search ด้วย fuse.js) + ปุ่มกรองตาม Tag |
+| 🔍 ค้นหาบทความ | ช่องค้นหาหน้า /articles (fuzzy search ด้วย fuse.js) + ปุ่มกรองตาม Tag |
 | 📝 ระบบฉบับร่าง | `draft: true` ใน Frontmatter ซ่อนบทความจากเว็บจริงจนกว่าจะพร้อม |
 | 🎨 Syntax Highlighting | โค้ดในบทความมีสีอัตโนมัติทุกภาษา (rehype-highlight) |
 | 📡 RSS Feed | ผู้อ่านติดตามผ่าน `/feed.xml` ได้ |
