@@ -1,5 +1,53 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# กติกาการทำงาน — KruTeeKidCode
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+## ข้อตกลงหลักที่เจ้าของยืนยัน — 16 กันยายน 2026
+
+Codex รับผิดชอบการสร้างและพัฒนา Web Blog ทั้งสองเว็บ:
+- ครูตี๋ที่สอน Oracle — https://teedba.com — repository PornchaiOSK114/teachOracle
+- KruTeeKidCode (ครูตี๋คิดโค้ด) — https://kruteekidcode.com — repository kruteekidcode/blog
+
+ขอบเขตประกอบด้วยโครงสร้างเว็บ UI ระบบบทความ ฟังก์ชันประกอบ การทดสอบ เอกสาร และการเตรียมเผยแพร่ แยกกลุ่มผู้อ่านและเอกลักษณ์ของแต่ละแบรนด์ให้ชัดเจน โฟลเดอร์หนังสือข้างเคียงไม่ใช่บล็อกที่สามและไม่อยู่ในขอบเขตโดยอัตโนมัติ
+
+## ลำดับเอกสารและการทำงาน
+
+- ยึดคำสั่งล่าสุดของเจ้าของในงานนั้นเป็นหลัก ตามด้วย AGENTS.md นี้
+- อ่าน docs/SETUP.md สำหรับขั้นตอน และ docs/PROJECT_STATE.md สำหรับข้อเท็จจริง/งานค้างที่มีวันที่กำกับ
+- README และคู่มือเฉพาะเรื่องอธิบายระบบ ไม่สร้างนโยบายซ้ำกับ AGENTS.md
+- CHANGELOG, Git history, design export และสำเนา handoff เก่าเป็นหลักฐานย้อนหลัง ไม่ใช่คำสั่งปัจจุบัน
+- ตรวจโค้ด Git และผลทดสอบจริงก่อนสรุปสถานะ แยก "มีโค้ด" ออกจาก "ทดสอบ production แล้ว"
+- ทำงานที่ได้รับอนุญาตให้เสร็จ รวมการตรวจสอบที่จำเป็น ไม่ถามอนุญาตซ้ำสำหรับขั้นตอนปกติในงานเดิม
+- การตรวจ/สรุปไม่ใช่คำสั่งให้แก้เว็บ งานใน backlog ไม่ใช่งานที่เสร็จแล้วหรือได้รับอนุญาตให้เผยแพร่ทั้งหมด
+- ใช้ภาษาไทยในการสื่อสารกับเจ้าของ และคงข้อความที่เจ้าของยืนยันแล้ว
+
+## ข้อมูลและความปลอดภัย
+
+- ใช้ข้อมูลที่เจ้าของยืนยัน ห้ามแต่งราคา สถิติ รายชื่อลูกค้า รีวิว ประวัติ หรือผลทดสอบ
+- ไม่เก็บ secret, token, password หรือข้อมูลลูกค้าลง repository หรือความจำ
+- เก็บการแก้ไขเดิมของเจ้าของไว้ ตรวจ diff และ stage เฉพาะ path ของงาน ห้าม git add -A
+- ไม่ลบ git lock หรือ reset งานโดยอัตโนมัติ ตรวจ process และสาเหตุก่อน
+- คำอนุญาตให้อัปเดต GitHub ใช้ได้กับงานและไฟล์ที่ระบุ ไม่ใช่อนุญาต deploy งานอื่นตลอดไป
+- งานเอกสารชุดนี้เจ้าของอนุญาตให้อัปเดต GitHub แล้ว ตรวจให้มีแต่เอกสารก่อนอัปเดต main และรายงาน commit
+- สำหรับงานเปลี่ยนเว็บจริงที่ยังไม่ได้รับอนุญาตเผยแพร่ ให้เตรียมผลที่ตรวจได้ก่อนขออนุมัติ การอัปเดต main อาจกระตุ้น Vercel แม้เป็นเอกสาร
+- ใช้ Git/connector ที่มีสิทธิ์จริง ไม่ยึดข้อจำกัดของ sandbox เก่าว่าต้องใช้ .bat เสมอ หากจำเป็นต้องสร้าง .bat ใช้ ASCII, CRLF, ไม่มี BOM และระบุ path ที่ stage
+- งานเอกสารตรวจ diff/ลิงก์/ความสอดคล้อง งานโค้ดตรวจ TypeScript และ build; งาน UI ดูหน้า desktop/mobile; งานส่งมอบทดสอบตามเส้นทางที่เปลี่ยน
+- Next.js 16: ตรวจคู่มือใน node_modules/next/dist/docs เมื่อไม่แน่ใจ API; params/searchParams อาจเป็น Promise
+- อย่า import node:fs, crypto หรือค่าลับฝั่ง server เข้า client component
+
+## การบันทึกความจำ
+
+AGENTS.md นี้เป็นจุดเริ่มต้นที่ Codex อ่านได้จาก repository ส่วน docs/PROJECT_STATE.md เก็บบริบทโปรเจ็กต์แบบตรวจสอบได้ ไม่อ้างว่าเป็นผลตรวจ live
+เขียนความจำส่วนตัวของ Codex เฉพาะเมื่อเจ้าของร้องขอ ใช้ช่องทาง memory ที่ runtime กำหนด ไม่แก้ memory registry โดยตรง และไม่อัปโหลดความจำส่วนตัวขึ้น GitHub
+
+## ข้อกำหนดเฉพาะ KruTeeKidCode
+
+- เป้าหมาย: สอนเด็กคิดเป็นระบบ แก้ปัญหาเป็นขั้นตอน และเรียน Coding โดยสื่อสารกับผู้ปกครอง
+- ใช้ชื่อเอกสาร "KruTeeKidCode" และ "ครูตี๋คิดโค้ด"; ข้อความเดิมใน runtime ที่ยังไม่ตรงให้บันทึกเป็นงานค้าง
+- อธิบายประโยชน์ด้านวิธีคิดให้ผู้ปกครองเข้าใจง่าย ใช้ข้อมูลประวัติ/หลักสูตร/ช่องทางติดต่อที่ยืนยันแล้วเท่านั้น
+- เนื้อหาบทความ: content/articles/*.mdx; หลักสูตร: content/courses/*.mdx; ประวัติ: content/about.mdx
+- ธีม Pink & Blue v3, CSS ธรรมดา, Inter และ Noto Sans Thai Looped
+- รักษา /articles และ redirect 308 จาก /blog กับ /blog/:slug
+- หน้า /courses ปัจจุบันเป็นหน้าแนะนำหลักสูตร ไม่ใช่ LMS และยังไม่มี checkout/member access
+- content/about.mdx ยังมีข้อมูลตัวอย่าง อย่าใช้เป็นหลักฐานประวัติจริง
+- ระบบค้นหาปัจจุบันใช้ includes() ไม่ใช่ fuzzy search แม้ติดตั้ง fuse.js
+- draft ปัจจุบันกรองเฉพาะรายการใน production; หน้าอ่าน slug ยังต้องแก้และทดสอบก่อนรับรองว่าปิดกั้น draft ได้
+- MailerLite และ Umami มีโค้ดเชื่อมต่อ แต่ต้องตรวจ deployment/settings ก่อนอ้างว่าใช้งานจริง
